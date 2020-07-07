@@ -20,10 +20,6 @@ class BaseModel(models.Model):
         """Metadata."""
         abstract = True
 
-
-# class User(BaseModel, AbstractUser):
-#     """Custom user model."""
-
 class post(BaseModel):
     """A photo posted by a user."""
 

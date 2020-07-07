@@ -15,6 +15,8 @@ from .models import post
 class postViewSet(viewsets.ModelViewSet):
     queryset = post.objects.all()
     serializer_class = postSerializer
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
