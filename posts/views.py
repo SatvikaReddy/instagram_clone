@@ -21,8 +21,12 @@ class postViewSet(viewsets.ModelViewSet):
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 

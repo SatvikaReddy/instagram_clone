@@ -8,21 +8,20 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
 
-class BaseModel(models.Model):
-    """Base model for the application. Uses UUID for pk."""
-    id = models.UUIDField(
-        primary_key=True,
-        editable=False,
-        default=uuid.uuid4,
-    )
+# class BaseModel(models.Model):
+#     """Base model for the application. Uses UUID for pk."""
+#     id = models.UUIDField(
+#         primary_key=True,
+#         editable=False,
+#         default=uuid.uuid4,
+#     )
 
-    class Meta:
-        """Metadata."""
-        abstract = True
+#     class Meta:
+#         """Metadata."""
+#         abstract = True
 
-class post(BaseModel):
+class post(models.Model):
     """A photo posted by a user."""
-
     user = models.ForeignKey(
         User, verbose_name="Created By", on_delete=models.CASCADE, related_name="photos"
     )
@@ -46,7 +45,7 @@ class post(BaseModel):
 
         ordering = ["-date_created"]
 
-class Like(BaseModel):
+class Like(models.Model):
     """A 'like' on a photo."""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
@@ -63,7 +62,7 @@ class Like(BaseModel):
         unique_together = (("user", "photo"),)
         ordering = ["-date_created"]
 
-class Comment(BaseModel):
+class Comment(models.Model):
     """A comment on a post."""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")

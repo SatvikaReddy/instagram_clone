@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = User
         fields=('id','username')
 
 class postSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,14 +18,12 @@ class postSerializer(serializers.HyperlinkedModelSerializer):
 
 class LikeSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(read_only=True)
-    photo= postSerializer()
     class Meta:
         model = Like
         fields = ('id','user', 'photo','date_created')
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(read_only=True)
-    photo= postSerializer()
     class Meta:
         model = Comment
         fields = ('id','user', 'photo','date_created','content')
